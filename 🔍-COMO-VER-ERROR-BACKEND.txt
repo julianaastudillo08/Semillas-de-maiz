@@ -1,0 +1,127 @@
+═══════════════════════════════════════════════════════════════
+       🔍 CÓMO VER EL ERROR EXACTO DEL BACKEND
+═══════════════════════════════════════════════════════════════
+
+
+📋 SIGUE ESTOS PASOS:
+═══════════════════════════════════════════════════════════════
+
+1️⃣ LOCALIZA LA TERMINAL DEL BACKEND
+───────────────────────────────────────────────────────────────
+
+   Busca la ventana de terminal/PowerShell donde está corriendo:
+   
+   > npm run dev
+   
+   O donde dice:
+   
+   "🌽 Servidor NASA YUWE iniciado en puerto 5000"
+
+
+2️⃣ DEJA ESA VENTANA VISIBLE
+───────────────────────────────────────────────────────────────
+
+   Coloca esa ventana al lado del navegador para que puedas
+   ver ambas al mismo tiempo.
+
+
+3️⃣ RECARGA EL NAVEGADOR
+───────────────────────────────────────────────────────────────
+
+   Presiona F5 en el navegador
+
+
+4️⃣ INTENTA HACER UN QUIZ
+───────────────────────────────────────────────────────────────
+
+   • Ve a "Actividades de Aprendizaje"
+   • Selecciona cualquier actividad
+   • Responde las preguntas
+   • Click en "Enviar Respuestas"
+
+
+5️⃣ OBSERVA LA TERMINAL DEL BACKEND
+───────────────────────────────────────────────────────────────
+
+   En la terminal del backend INMEDIATAMENTE aparecerán mensajes
+   como estos:
+
+   ✅ SI TODO FUNCIONA BIEN:
+   ────────────────────────────────────────────────────────────
+   📝 Submitting activity: { attemptId: '...', studentId: '...', answersCount: 3 }
+   📊 Resultados: { correctAnswers: 2, totalQuestions: 3, score: 67 }
+   ✅ Transacción completada exitosamente
+   🔓 Cliente liberado
+
+
+   ❌ SI HAY ERROR:
+   ────────────────────────────────────────────────────────────
+   📝 Submitting activity: { attemptId: '...', studentId: '...', answersCount: 3 }
+   ❌ Error en submitActivity: [AQUÍ APARECE EL ERROR EXACTO]
+   Stack: [detalles del error]
+   ⏮️ Rollback ejecutado
+   🔓 Cliente liberado
+
+
+6️⃣ COPIA EL MENSAJE DE ERROR
+───────────────────────────────────────────────────────────────
+
+   Si aparece un mensaje con ❌, copia TODO lo que dice después de:
+   
+   "❌ Error en submitActivity:"
+   
+   Y también la línea que dice "Stack:"
+
+
+7️⃣ PÉGAME ESE MENSAJE
+───────────────────────────────────────────────────────────────
+
+   Pega aquí TODO el mensaje de error para que pueda ver
+   exactamente qué está fallando.
+
+
+═══════════════════════════════════════════════════════════════
+
+
+🎯 EJEMPLO DE LO QUE DEBERÍAS COPIAR:
+═══════════════════════════════════════════════════════════════
+
+📝 Submitting activity: { attemptId: 'abc123...', studentId: 'xyz789...', answersCount: 3 }
+❌ Error en submitActivity: syntax error at or near "INSERT"
+Stack: Error: syntax error at or near "INSERT"
+    at Parser.parseErrorMessage (C:\...\pg-protocol\dist\parser.js:287:98)
+    at Parser.handlePacket (C:\...\pg-protocol\dist\parser.js:126:29)
+    ...más líneas...
+⏮️ Rollback ejecutado
+🔓 Cliente liberado
+
+
+═══════════════════════════════════════════════════════════════
+
+
+⚠️ IMPORTANTE:
+═══════════════════════════════════════════════════════════════
+
+• NO cierres la terminal del backend
+• NO reinicies el servidor todavía
+• SOLO copia el mensaje de error y pégalo aquí
+
+
+═══════════════════════════════════════════════════════════════
+
+
+🔧 CON ESE MENSAJE PODRÉ:
+═══════════════════════════════════════════════════════════════
+
+✅ Ver exactamente qué línea de código falla
+✅ Ver qué datos están causando el problema
+✅ Corregir el error específico
+✅ Hacer que el quiz funcione
+
+
+═══════════════════════════════════════════════════════════════
+
+🌽 Espero tu respuesta con los logs del backend!
+
+═══════════════════════════════════════════════════════════════
+

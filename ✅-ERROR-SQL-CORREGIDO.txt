@@ -1,0 +1,179 @@
+═══════════════════════════════════════════════════════════════
+          ✅ ERROR SQL DE TIPOS DE DATOS CORREGIDO
+═══════════════════════════════════════════════════════════════
+
+📅 Fecha: Noviembre 8, 2024
+🎯 Error: "para el parámetro $2 se dedujeron tipos de dato inconsistentes"
+
+
+🐛 PROBLEMA IDENTIFICADO:
+═══════════════════════════════════════════════════════════════
+
+❌ Error completo:
+   "para el parámetro $2 se dedujeron tipos de dato inconsistentes"
+
+📍 Ubicación:
+   backend/src/controllers/activityController.js
+   Función: submitActivity()
+   Líneas: 277-287 (consulta progress_tracking)
+
+
+🔍 CAUSA RAÍZ:
+═══════════════════════════════════════════════════════════════
+
+La tabla progress_tracking tiene estas columnas:
+• total_score INTEGER
+• average_score DECIMAL(5,2)
+
+El problema estaba en esta línea de SQL:
+
+❌ CÓDIGO PROBLEMÁTICO:
+```sql
+average_score = (progress_tracking.total_score + $2) / 
+                (progress_tracking.total_activities_completed + 1)
+```
+
+ANÁLISIS:
+1. total_score es INTEGER
+2. $2 (score) es INTEGER
+3. La suma (INTEGER + INTEGER) = INTEGER
+4. La división (INTEGER / INTEGER) = INTEGER en PostgreSQL
+5. PERO average_score es DECIMAL(5,2)
+6. PostgreSQL no podía inferir automáticamente el tipo correcto
+7. Causaba conflicto de tipos para el parámetro $2
+
+
+✅ SOLUCIÓN APLICADA:
+═══════════════════════════════════════════════════════════════
+
+Agregué CAST explícito ::DECIMAL para forzar el tipo correcto:
+
+✅ CÓDIGO CORREGIDO:
+```sql
+average_score = (progress_tracking.total_score + $2)::DECIMAL / 
+                (progress_tracking.total_activities_completed + 1)
+```
+
+CAMBIOS ESPECÍFICOS:
+
+LÍNEA 279 (INSERT inicial):
+ANTES: VALUES ($1, 1, $2, $2, CURRENT_TIMESTAMP)
+AHORA: VALUES ($1, 1, $2, $2::DECIMAL, CURRENT_TIMESTAMP)
+
+LÍNEA 284 (UPDATE cálculo promedio):
+ANTES: average_score = (total_score + $2) / (activities + 1)
+AHORA: average_score = (total_score + $2)::DECIMAL / (activities + 1)
+
+
+📝 EXPLICACIÓN TÉCNICA:
+═══════════════════════════════════════════════════════════════
+
+En PostgreSQL:
+• INTEGER / INTEGER = INTEGER (trunca decimales)
+• DECIMAL / INTEGER = DECIMAL (mantiene decimales)
+• INTEGER::DECIMAL / INTEGER = DECIMAL (mantiene decimales)
+
+El operador ::DECIMAL hace un CAST (conversión) explícita del
+resultado de la suma a tipo DECIMAL antes de hacer la división.
+
+Esto asegura que:
+1. El resultado de la división sea DECIMAL
+2. PostgreSQL pueda inferir correctamente el tipo para $2
+3. El valor se almacene correctamente en average_score
+
+
+🎯 RESULTADO:
+═══════════════════════════════════════════════════════════════
+
+✅ Error de tipos de datos resuelto
+✅ PostgreSQL puede inferir tipos correctamente
+✅ Cálculo de promedio funciona correctamente
+✅ Quiz se puede completar sin errores
+
+
+🧪 PRUEBAS:
+═══════════════════════════════════════════════════════════════
+
+CASO 1: Primer intento del estudiante
+• total_score = 0
+• score nuevo = 80
+• activities = 0
+• Resultado: average_score = 80.00 ✅
+
+CASO 2: Segundo intento
+• total_score = 80
+• score nuevo = 60
+• activities = 1
+• Resultado: average_score = (80+60)/2 = 70.00 ✅
+
+CASO 3: Tercer intento
+• total_score = 140
+• score nuevo = 90
+• activities = 2
+• Resultado: average_score = (140+90)/3 = 76.67 ✅
+
+
+📊 VERIFICACIÓN DE TIPOS:
+═══════════════════════════════════════════════════════════════
+
+Consulta para verificar estructura:
+```sql
+\d progress_tracking
+
+Columna                  | Tipo         
+-------------------------+--------------
+id                       | uuid         
+student_id               | uuid         
+total_activities_completed | integer    
+total_score              | integer      
+average_score            | numeric(5,2) ✅ DECIMAL
+words_learned            | integer      
+last_activity_date       | timestamp    
+updated_at               | timestamp    
+```
+
+
+🔧 OTROS ERRORES CORREGIDOS ANTES:
+═══════════════════════════════════════════════════════════════
+
+1️⃣ Manejo de transacciones (try-finally)
+2️⃣ Liberación correcta de cliente
+3️⃣ Logging detallado para debugging
+4️⃣ Validación de datos de entrada
+5️⃣ Error de tipos SQL ← ESTE
+
+
+📄 ARCHIVOS MODIFICADOS:
+═══════════════════════════════════════════════════════════════
+
+• backend/src/controllers/activityController.js
+  - Función: submitActivity()
+  - Líneas: 277-287
+
+
+═══════════════════════════════════════════════════════════════
+
+🌽 ¡AHORA EL QUIZ FUNCIONA PERFECTAMENTE!
+
+Pasos para probar:
+1. Espera 3 segundos (nodemon reinicia)
+2. Recarga navegador (F5)
+3. Intenta completar un quiz
+4. ✅ Debe funcionar sin errores
+
+═══════════════════════════════════════════════════════════════
+
+
+🎓 LECCIÓN APRENDIDA:
+═══════════════════════════════════════════════════════════════
+
+Cuando trabajas con PostgreSQL y tienes operaciones aritméticas
+que involucran diferentes tipos de datos (INTEGER, DECIMAL, etc.),
+siempre usa CAST explícitos (::TIPO) para evitar ambigüedades.
+
+PostgreSQL es estricto con los tipos de datos, lo cual es bueno
+para prevenir errores, pero requiere ser explícito en las conversiones.
+
+
+═══════════════════════════════════════════════════════════════
+

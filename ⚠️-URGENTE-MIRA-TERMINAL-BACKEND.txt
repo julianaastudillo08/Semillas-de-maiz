@@ -1,0 +1,117 @@
+═══════════════════════════════════════════════════════════════
+    ⚠️ URGENTE: NECESITO VER LA TERMINAL DEL BACKEND
+═══════════════════════════════════════════════════════════════
+
+
+🚨 EL ERROR 500 PERSISTE, PERO NECESITO MÁS INFORMACIÓN
+═══════════════════════════════════════════════════════════════
+
+
+📋 HAZ ESTO AHORA MISMO:
+═══════════════════════════════════════════════════════════════
+
+1. LOCALIZA la ventana de PowerShell/Terminal donde está corriendo:
+
+   > npm run dev
+   
+   (Es la terminal del BACKEND)
+
+
+2. ESA ventana debe mostrar algo como:
+   
+   🌽 Servidor NASA YUWE iniciado en puerto 5000
+   ✅ Conectado a PostgreSQL
+
+
+3. INTENTA hacer el quiz DE NUEVO
+
+
+4. INMEDIATAMENTE aparecerán mensajes en esa terminal como:
+
+   📝 Submitting activity: { attemptId: '...', studentId: '...', answersCount: 3 }
+   ❌ Error en submitActivity: [AQUÍ ESTÁ EL ERROR QUE NECESITO]
+   Stack: [detalles del error]
+
+
+5. COPIA TODO lo que aparezca después del emoji ❌
+
+
+═══════════════════════════════════════════════════════════════
+
+
+🎯 EJEMPLO DE LO QUE DEBERÍAS VER:
+═══════════════════════════════════════════════════════════════
+
+📝 Submitting activity: { attemptId: 'acf18a20-...', studentId: '123...', answersCount: 3 }
+❌ Error en submitActivity: null value in column "student_answer" violates not-null constraint
+Stack: error: null value in column "student_answer" violates not-null constraint
+    at Parser.parseErrorMessage (...)
+    at ...
+
+
+⬆️ ESO ES LO QUE NECESITO VER ⬆️
+
+
+═══════════════════════════════════════════════════════════════
+
+
+❓ ¿NO VES ESA VENTANA?
+═══════════════════════════════════════════════════════════════
+
+Si no encuentras la terminal del backend:
+
+1. Busca una ventana de PowerShell/CMD que diga:
+   "🌽 Servidor NASA YUWE iniciado en puerto 5000"
+
+2. O busca una ventana donde se ejecutó:
+   C:\Users\Juliana\OneDrive\Desktop\Semillas de maiz\backend
+   > npm run dev
+
+
+═══════════════════════════════════════════════════════════════
+
+
+⚠️ SIN ESOS LOGS NO PUEDO AYUDARTE
+═══════════════════════════════════════════════════════════════
+
+Los logs del navegador solo me dicen "Error 500" pero NO me dicen
+QUÉ causó el error.
+
+Los logs del BACKEND me dirán EXACTAMENTE qué está fallando:
+• ¿Es un error de SQL?
+• ¿Falta una columna?
+• ¿Un valor es NULL cuando no debería?
+• ¿Hay un problema de permisos?
+
+
+═══════════════════════════════════════════════════════════════
+
+
+🔍 PASOS DETALLADOS:
+═══════════════════════════════════════════════════════════════
+
+PASO 1: Encuentra la terminal del backend
+        (donde corre npm run dev)
+
+PASO 2: Déjala visible
+
+PASO 3: Ve al navegador
+
+PASO 4: Intenta hacer el quiz
+
+PASO 5: MIRA INMEDIATAMENTE la terminal del backend
+
+PASO 6: Aparecerá un mensaje con ❌
+
+PASO 7: COPIA todo ese mensaje
+
+PASO 8: PÉGALO AQUÍ
+
+
+═══════════════════════════════════════════════════════════════
+
+
+🌽 ¡Espero esos logs para poder corregir el error!
+
+═══════════════════════════════════════════════════════════════
+

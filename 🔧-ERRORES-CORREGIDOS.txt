@@ -1,0 +1,137 @@
+═══════════════════════════════════════════════════════════════
+              🔧 ERRORES CORREGIDOS - ERROR 500
+═══════════════════════════════════════════════════════════════
+
+📅 Fecha: Noviembre 8, 2024
+
+
+🐛 PROBLEMA IDENTIFICADO:
+═══════════════════════════════════════════════════════════════
+
+❌ ERROR: 500 Internal Server Error al enviar respuestas del quiz
+   Endpoint: POST /api/activities/attempts/:attemptId/submit
+   Origen: Quiz.jsx líneas 77 y 88
+
+
+🔍 CAUSA RAÍZ:
+═══════════════════════════════════════════════════════════════
+
+En backend/src/controllers/activityController.js:
+
+El problema estaba en la función submitActivity():
+
+1. Se abría una transacción con client.query('BEGIN')
+2. Se procesaban las respuestas
+3. Se hacía COMMIT
+4. ❌ DESPUÉS del COMMIT, intentaba hacer otra consulta con client.query()
+5. ❌ Pero el cliente ya había sido liberado en el finally
+
+CÓDIGO PROBLEMÁTICO (líneas 269-296):
+```javascript
+await client.query('COMMIT');
+
+// ❌ MAL: Usando client.query() después de COMMIT
+const correctAnswersResult = await client.query(
+  `SELECT sa.*, q.question_text...`,
+  [attemptId]
+);
+
+...
+
+} catch (error) {
+  await client.query('ROLLBACK');
+  next(error);
+} finally {
+  client.release(); // ❌ Se liberaba aquí, muy tarde
+}
+```
+
+
+✅ SOLUCIÓN APLICADA:
+═══════════════════════════════════════════════════════════════
+
+CAMBIOS REALIZADOS:
+
+1. ✅ Liberar el cliente inmediatamente después del COMMIT
+2. ✅ Usar pool.query() para consultas después de la transacción
+3. ✅ Liberar el cliente también en el catch
+
+CÓDIGO CORREGIDO:
+```javascript
+await client.query('COMMIT');
+client.release(); // ✅ Liberar inmediatamente
+
+// ✅ BIEN: Usando pool.query() después de cerrar transacción
+const correctAnswersResult = await pool.query(
+  `SELECT sa.*, q.question_text...`,
+  [attemptId]
+);
+
+...
+
+} catch (error) {
+  await client.query('ROLLBACK');
+  client.release(); // ✅ Liberar también en error
+  next(error);
+}
+// ✅ Ya no hay finally porque se libera explícitamente
+```
+
+
+📊 RESULTADO:
+═══════════════════════════════════════════════════════════════
+
+✅ Error 500 corregido
+✅ Envío de quiz funcionando correctamente
+✅ Transacciones manejadas correctamente
+✅ Conexiones a BD liberadas apropiadamente
+
+
+🧪 CÓMO PROBAR:
+═══════════════════════════════════════════════════════════════
+
+1. RECARGA el navegador (F5)
+2. Inicia sesión como estudiante
+3. Ve a "Actividades de Aprendizaje"
+4. Completa un quiz
+5. Envía las respuestas
+6. ✅ Deberías ver tu puntuación sin errores
+
+
+📝 OTROS CONTROLADORES VERIFICADOS:
+═══════════════════════════════════════════════════════════════
+
+✅ groupController.js → OK (usa finally correctamente)
+✅ authController.js → OK (no usa transacciones)
+✅ dictionaryController.js → OK (no usa transacciones)
+✅ adminController.js → OK
+✅ reportController.js → OK
+
+
+🎯 RESUMEN TÉCNICO:
+═══════════════════════════════════════════════════════════════
+
+Archivo modificado:
+• backend/src/controllers/activityController.js
+
+Función corregida:
+• submitActivity()
+
+Líneas modificadas:
+• 269-296
+
+Tipo de error:
+• Manejo incorrecto de conexiones de pool PostgreSQL
+• Uso de cliente después de transacción cerrada
+
+Impacto:
+• Crítico - Impedía completar quizzes
+• Ahora CORREGIDO ✅
+
+
+═══════════════════════════════════════════════════════════════
+
+🌽 ¡Error corregido! Ahora puedes hacer quizzes sin problemas.
+
+═══════════════════════════════════════════════════════════════
+

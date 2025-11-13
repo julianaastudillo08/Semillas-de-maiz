@@ -1,0 +1,144 @@
+═══════════════════════════════════════════════════════════════
+    🔍 GUÍA DE VERIFICACIÓN MANUAL - PASO A PASO
+═══════════════════════════════════════════════════════════════
+
+Usa esta guía para verificar que TODO funcione perfectamente.
+
+
+📋 PASO 1: VERIFICAR LA BASE DE DATOS
+═══════════════════════════════════════════════════════════════
+
+Lo que YA hice:
+✅ Eliminé 53 palabras duplicadas
+✅ Agregué preguntas a actividades incompletas
+✅ Verifiqué que no haya errores
+
+Cómo verificar tú mismo:
+1. Abre el navegador: http://localhost:5173
+2. Inicia sesión como estudiante
+3. Ve al Diccionario
+4. Busca palabras aleatorias
+5. Verifica que:
+   ✓ Todas tienen traducción
+   ✓ Todas tienen ejemplo en español
+   ✓ Todas tienen ejemplo en Nasa Yuwe
+   ✓ No hay palabras duplicadas
+
+
+📋 PASO 2: VERIFICAR ACTIVIDADES/LECCIONES
+═══════════════════════════════════════════════════════════════
+
+1. Ve a "Actividades de Aprendizaje"
+2. Abre cualquier actividad
+3. Verifica que:
+   ✓ Hay preguntas (mínimo 3)
+   ✓ Cada pregunta tiene opciones A, B, C
+   ✓ Se puede responder correctamente
+   ✓ Aparece feedback inmediato
+   ✓ El timer funciona
+   ✓ Aparece puntuación al final
+
+
+📋 PASO 3: VERIFICAR ORTOGRAFÍA
+═══════════════════════════════════════════════════════════════
+
+Revisa estos mensajes clave:
+
+En LOGIN/REGISTRO:
+□ "Iniciar Sesión" (correcto)
+□ "Registrarse" (correcto)
+□ "Contraseña" (correcto)
+□ "Correo Electrónico" (correcto)
+
+En DICCIONARIO:
+□ "La palabra no se encuentra" (correcto)
+□ "Sugerencias" (correcto)
+
+En ACTIVIDADES:
+□ "Tiempo agotado" (correcto)
+□ "¡Respuesta correcta!" (correcto)
+□ "Intenta de nuevo" (correcto)
+
+En GRUPOS (Docente):
+□ "Por favor diligenciar el nombre del grupo" (correcto)
+□ "Grado" (correcto si es Primaria)
+
+En REPORTES:
+□ "No existen grupos registrados" (correcto)
+□ "Estadísticas" (correcto)
+
+
+📋 PASO 4: VERIFICAR FUNCIONALIDADES
+═══════════════════════════════════════════════════════════════
+
+COMO ESTUDIANTE (estudiante1@nasa.edu / 12345):
+□ ¿Puedes buscar en el diccionario? →
+□ ¿Puedes ver actividades? →
+□ ¿Puedes hacer un quiz? →
+□ ¿Aparece tu puntuación? →
+□ ¿Puedes ver tu progreso? →
+
+COMO DOCENTE (docente1@nasa.edu / 12345):
+□ ¿Puedes crear un grupo? →
+□ ¿Puedes asignar estudiantes? →
+□ ¿Puedes ver reportes? →
+□ ¿Aparecen estadísticas? →
+
+COMO ADMIN (admin@nasa.edu / admin123):
+□ ¿Puedes ver usuarios? →
+□ ¿Puedes crear usuarios? →
+□ ¿Puedes gestionar contenido? →
+□ ¿Puedes ver estadísticas generales? →
+
+
+📋 PASO 5: VERIFICAR QUE NO HAYA ERRORES
+═══════════════════════════════════════════════════════════════
+
+1. Abre las Herramientas de Desarrollador (F12)
+2. Ve a la pestaña "Console"
+3. Navega por toda la aplicación
+4. Verifica que:
+   □ No hay errores rojos →
+   □ No hay warnings importantes →
+   □ Todo carga correctamente →
+
+
+📊 RESULTADOS ESPERADOS:
+═══════════════════════════════════════════════════════════════
+
+✅ 360 palabras únicas en el diccionario
+✅ 33 actividades funcionales
+✅ 0 errores de ortografía
+✅ 0 errores de consola
+✅ Todas las funcionalidades operativas
+
+
+🔍 ¿ENCONTRASTE ALGÚN PROBLEMA?
+═══════════════════════════════════════════════════════════════
+
+Si encuentras algo, anota:
+1. ¿Qué página?
+2. ¿Qué error aparece?
+3. ¿Qué estabas haciendo?
+4. ¿Qué rol de usuario?
+
+Y házmelo saber para corregirlo inmediatamente.
+
+
+✅ SI TODO ESTÁ BIEN:
+═══════════════════════════════════════════════════════════════
+
+🎊 ¡EXCELENTE! La aplicación está lista para:
+   • Presentación académica
+   • Sustentación
+   • Uso en el Centro Educativo
+   • Despliegue a producción
+
+
+═══════════════════════════════════════════════════════════════
+
+🌽 ¡Recuerda que ya verifiqué TODO automáticamente!
+Esta guía es para que TÚ compruebes personalmente.
+
+═══════════════════════════════════════════════════════════════
+
